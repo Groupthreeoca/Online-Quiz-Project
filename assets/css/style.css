@@ -1,0 +1,23 @@
+:root{
+    --primary: #00bcd4;
+    --secondary: #fafafa;
+    --dark: #212121;
+    --light: #fafafa;
+    --gray: #9e9e9e;
+    --red: #f44336;
+    --green: #4caf50;
+    --blue: #2196f3;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html
+{
+    scroll-behavior: smooth;
+    /* color: var(--dark);  */
+}
+
