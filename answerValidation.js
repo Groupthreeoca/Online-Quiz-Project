@@ -23,7 +23,7 @@ let currentQuestion=1;
 let correctStatus = [];
 let userAnswers = [];
 
-// B) The validation only occurs when the user clicks next button and the funtion needs to read the user's answer from the selected radio.
+// B) The validation only occurs when the user clicks next button and the function needs to read the user's answer from the selected radio.
 nextButton.addEventListener('click',function(){
     const radioChoices = document.querySelectorAll('input[name="answer"]');
     // B1) Determining which answer the user has chosen (will save the input value as a number)//
