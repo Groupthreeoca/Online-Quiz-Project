@@ -1,11 +1,11 @@
 'use strict';
 
 //Task #1
-////// a Fuction that takes the correct answers as an array and saves each element in the local storage (example: Question1:Italy)//////
+////// a Function that takes the correct answers as an array and saves each element in the local storage (example: Question1:Italy)//////
 function saveCorrectAnswersToStorage(correctAnswers){
     //In Order to print the question number in the keys in the local storage//
     let questionNumber = 1;
-    /////Saving each element in the correct answers array coming from haneen into the storage as seperate key for each question with the value of the correct answer///////
+    /////Saving each element in the correct answers array coming from haneen into the storage as separate key for each question with the value of the correct answer///////
     for(let i of correctAnswers){
         localStorage.setItem(`Question${questionNumber}`,i);
         questionNumber++;
