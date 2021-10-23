@@ -178,7 +178,11 @@ nextCheck.addEventListener("click", function () {
 
   //   if the user not select one of options
   else {
-    window.alert("please Choose one of the options");
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Please Choose one of the options!",
+    });
   }
 });
 
