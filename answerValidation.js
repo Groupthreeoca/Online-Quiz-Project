@@ -22,6 +22,7 @@ const nextButton=document.querySelector('.nextButton');
 let currentQuestion=1;
 let correctStatus = [];
 let userAnswers = [];
+let correctAnswersCounter ;
 
 // B) The validation only occurs when the user clicks next button and the funtion needs to read the user's answer from the selected radio.
 nextButton.addEventListener('click',function(){
@@ -33,7 +34,7 @@ nextButton.addEventListener('click',function(){
             userCurrentAnswerValue = item.value;
         }
     })
-    let correctAnswersCounter = 0;
+    correctAnswersCounter = 0;
     
     /* B2) -Comparing user answer with correct answer.
     -Editing the correct counter if the answer is correct.
@@ -41,13 +42,13 @@ nextButton.addEventListener('click',function(){
     *if correct answer-->i will push true
     *if wrong answer--> i will push false
     */ 
-   if(userCurrentAnswerValue == correctAnswers[currentQuestion-1]){
-       console.log("correct ya ghaly")
+    if(userCurrentAnswerValue == correctAnswers[currentQuestion-1]){
+        console.log("correct ya ghaly")
        correctAnswersCounter++;
        correctStatus.push(true);         
        
     }else{
-        console.log('wrong ya 7mar')
+        // console.log('wrong ya 7mar')
         correctStatus.push(false);
     }
     let userCurrentAnswerText = document.getElementById(`answer${userCurrentAnswerValue}`).innerHTML
@@ -56,3 +57,27 @@ nextButton.addEventListener('click',function(){
     
     currentQuestion++;
 })
+
+let button = document.querySelector('.nextButton');
+button.addEventListener("click",showFinalResults);
+function showFinalResults(){
+	let content =  document.getElementById('option');
+    content.innerHTML = '<h2>You Completed The Quiz</h2>';
+    content.innerHTML+= `<p>Below are your results:</p>`;
+    content.innerHTML+= `<h2>` + correctAnswersCounter + `out of ${currentQuestion-1} questions </h2>`;
+
+
+
+    if(correctAnswersCounter>=(currentQuestion/2)){
+        console.log("toqa");
+        document.body.style.backgroundColor = "#4caf50";
+        content.innerHTML += '<h2>You Passed</h2>';
+
+    }else{
+        document.body.style.backgroundColor = "#f44336";
+        content.innerHTML += '<h2>You Failed</h2>';
+        console.log("toqaaaaaaaaaa");
+    }
+    content.innerHTML+=`<input type="button" value="Show Results" >`; 
+}
+
