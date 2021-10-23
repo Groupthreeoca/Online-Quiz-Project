@@ -226,7 +226,7 @@ let currentQuestion=1;
 let correctStatus = [];
 let userAnswers = [];
 let correctAnswersCounter=0 ;
-let questionsFromLocal = [];
+let questionsFromLocal = []; ////Array that will contain the questions from local storage////
 let questionsFromLocalLength = localStorage.length;
 console.log(questionsFromLocalLength)
 for(let j=0;j<questionsFromLocalLength;j++){
@@ -345,12 +345,17 @@ function showFinalResults(){
 }
 
 function checkAnswer(correctStatus,userAnswers){
+     let examQuestion = [];
+     for (let i = 0, length = Question.length; i < length; i++) {
+        examQuestion[i] = Question[i].question;
+     }
+    
     let table=  document.createElement('table');//creating a table to show the user's answers//
     let quizDiv = document.querySelector('.quiz-content');//selecting the div where the table will be inserted//
     for(let i=0;i<userAnswers.length;i++){//
         let listItem = document.createElement('tr');//creating a row for each question//
         let questionCell = document.createElement('td');//creating a cell for each question//
-            questionCell.innerHTML=`Hi`
+            questionCell.innerHTML = examQuestion[i];
 
         let userAnswerCell = document.createElement('td');//creating a cell for each user answer//
         userAnswerCell.innerHTML=`${userAnswers[i]}`;
