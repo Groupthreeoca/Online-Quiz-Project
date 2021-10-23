@@ -149,7 +149,7 @@ html {
 
   /* Next and End Quiz padding and background  */
 .nextCheck , 
-.endQuiz{
+.endQuiz ,.show{
     padding:0.5em 1em;
     background-color:var(--primary);
     border:var(--primary);
