@@ -1,27 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Five Trees Group</title>
-    <!-- Css Style -->
-    <link rel="stylesheet" href="./assets/css/style.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+      integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <title>Fivetreesgroup</title>
+  </head>
+  <body>
     <header>
-        <nav class="navbar" id="navbar">
-
-        </nav>
+      <nav class="container1">
+        <div class="logo"><img src="./assets/images/fivetreeslogo.png" /></div>
+        
+        <div class="navbar">
+          <ul>
+            <li>
+              <a href="https://www.linkedin.com/" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
+            </li>
+            <li>
+              <a href="https://github.com/Groupthreeoca" target="_blank"><i class="fa-brands fa-github"></i></a>
+            </li>
+            <li>
+              <a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook"></i></a>
+            </li>
+          </ul>
+        </div>
+      </nav>
     </header>
     <main>
+      <div class="jobDescription">
+        <p>
+          Front end developers are computer programmers who specialize in
+          website design. Front end developer duties include determining the
+          structure and design of web pages, striking a balance between
+          functional and aesthetic design, and ensuring web design is optimized
+          for smartphones.
+        </p>
+      </div>
+      <div class="loginForm" id="firstForm" >
+        <h2>Login</h2>
+        <div class="field">
+          <input class="emailSignin" type="text" placeholder="email@example.com" required />
+          <div class="icons">
+            <i class="fas fa-check-circle"></i>
+            <i class="fas fa-exclamation-circle"></i>
+          </div>
+        </div>
+        <div class="field2">
+          <input class="passwordLogin" type="password" placeholder="password" required />
+        <div class="iconsPass">
+          <i class="fas fa-exclamation-circle"></i>
+        </div>
+        </div>
         
+        <button class="loginBtn" type="submit">login</button>
+        <p> Don't have an account? <a class="signupLink" href="#">Create account</a> </p>
+      </div>
+      </div>
+      <div class="signupForm">
+        <h2>Create Account</h2>
+        <input class="usernameSignup" type="text" placeholder="username" />
+        <input class="emailSignup" type="email" placeholder="email" required/>
+        <input class="passwordSignup" type="password" placeholder="password" required/>
+        <div class="msg1"></div>
+        <input class="rpasswordSignup" type="password" placeholder="confirm password" required/>
+        <div class="msg2"></div>
+        <button class="signupBtn" type="submit">sign Up</button>
+        <p> Already have an account? <a class="signinLink" href="#">Sign in</a> </p>
+      </div>
     </main>
-
-<footer class="footer" id="footer">
-
-</footer>
-    <!-- JS Files -->
-    <script src="./scripts/main.js"></script>
-</body>
+    <footer><p class="footerText">&copy; 2021 all rights reserved</p></footer>
+    <script src="signup.js"></script>
+  </body>
 </html>
