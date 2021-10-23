@@ -1,0 +1,158 @@
+:root{
+    --primary: #4bb9b7;
+    --secondary: #fafafa;
+    --dark: #212121;
+    --light: #fafafa;
+    --gray: #9e9e9e;
+    --red: #f44336;
+    --green: #4caf50;
+    --blue: #2196f3;
+    --primary-color: #f9de56;
+    --secondry-color: #4bb9b7;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Archivo:wght@100&family=Roboto&display=swap");
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+  background-color: var(--primary-color);
+}
+html {
+  scroll-behavior: smooth;
+}
+:root {
+  --primary-color: #f9de56;
+  --secondry-color: #4bb9b7;
+}
+
+/* radio */
+.radio{
+    visibility : hidden;
+    
+    /* display: flex; 
+     justify-content: center;
+     align-items: center;
+    */
+      
+  }
+
+  label{
+    /* display: flex;
+    justify-content: center;
+    align-items: center;
+   */
+
+  }
+
+/* navbar layot and background color */
+.container1 {
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--primary-color);
+  }
+
+  /* logo img margin and width and height */
+  .logo img {
+    width: 5em;
+    height: auto;
+    margin: 1em;
+  }
+
+  /* ul navbar layout and margin and list-style  */
+  .navbar ul {
+    display: flex;
+    margin: 2em;
+    list-style: none;
+  }
+
+  /* icons margin  */
+  .navbar ul li {
+    margin-right: 1em;
+  }
+
+  /* icons links font-size  */
+  .navbar ul li a {
+    text-decoration: none;
+    font-size: 2em;
+    color: black;
+  }
+  /* icons in hover scale  */
+  .navbar ul li a i:hover {
+    transform: scale(1.3);
+  }
+
+  /* footer text-align  */
+  footer .footerText {
+    display: flex;
+    justify-content: center;
+  
+  
+  }
+
+  /* main background and layout and center */
+  main {
+
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+
+  }
+
+  /* main layout and center  */
+  .secondPage {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    height: 100vh;
+    /* justify-content: center; */
+  }
+/* font-size welcoming and estimedTime */
+.welcoming {
+    font-size: 2rem;
+  }
+  .welcoming .estimatedTime {
+    font-size: 1.5rem;
+  }
+
+  /* button let`s start layout and cursor  */
+
+  .secondPage .letsStart {
+    display: flex;
+    width: 30%;
+    margin-left: 38%;
+    cursor: pointer;
+    border-radius: 10px;
+    justify-content: center;
+    padding:0.5em 1em;
+    border:var(--primary);
+    font-size: 1em;  
+    
+  }
+  .secondPage .letsStart:hover {
+    transform: scale(1.1);
+    background-color: var(--secondry-color);
+  }
+
+  /* Next and End Quiz padding and background  */
+.nextCheck , 
+.endQuiz{
+    padding:0.5em 1em;
+    background-color:var(--primary);
+    border:var(--primary);
+    font-size: 1em;
+
+}  
+
+ul{
+    list-style-type: none;
+}
+.quiz-answer{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+}
+
+
+
