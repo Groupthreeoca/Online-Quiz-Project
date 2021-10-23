@@ -48,8 +48,8 @@ function invalidRepeatPassword() {
     msg1.style.cssText = "visibility:block";
   }
 }
-let signupBtn = document.querySelector(".signupBtn");
 
+let signupBtn = document.querySelector(".signupBtn");
 signupBtn.addEventListener("click", newSignup);
 function newSignup() {
   var fname = document.querySelector(".usernameSignup").value;
@@ -65,10 +65,15 @@ function newSignup() {
   var json = JSON.stringify(user);
   let signupstatus;
   for (let i = 0; i < localStorage.length; i++) {
-    if (user.email == localStorage.key(i)) {
-      signupstatus = true;
+    if (localStorage.key(i).includes("@")) {
+      if (user.email == localStorage.key(i)) {
+        signupstatus = true;
+      }
+    } else {
+      continue;
     }
   }
+
   let enterPass = document.querySelector(".passwordSignup");
   let repeatPass = document.querySelector(".rpasswordSignup");
   let checkPass = enterPass.value;
@@ -92,31 +97,42 @@ function goQuiz() {
   let password = document.querySelector(".passwordLogin").value;
   let located = false;
   let locatedIndex;
+  sessionStorage.setItem("0", email);
+
   // searching for users email in local storage
   for (let i = 0; i < localStorage.length; i++) {
-    if (email == localStorage.key(i)) {
-      located = true;
-      locatedIndex = i;
+    if (localStorage.key(i).includes("@")) {
+      if (email == localStorage.key(i)) {
+        located = true;
+        locatedIndex = i;
+      } else {
+        continue;
+      }
     }
   }
+
   let emailSignin = document.querySelector(".emailSignin");
   let correctCheck = document.querySelector(".fa-check-circle");
   let wrongCheck = document.querySelector(".fa-exclamation-circle ");
   let wrongCheck2 = document.querySelector(".iconsPass .fa-exclamation-circle");
-  let json = JSON.parse(localStorage.getItem(localStorage.key(locatedIndex)));
-  if (password == json.password && located) {
-    window.location.href = "welcome.html";
-  } else {
-    let passwordField = document.querySelector(".passwordLogin");
+  let json;
+  if (located) {
+    json = JSON.parse(localStorage.getItem(localStorage.key(locatedIndex)));
 
-    emailSignin.style.border = "3px solid red";
-    passwordField.style.border = "3px solid red";
-    wrongCheck.style.display = "block";
-    wrongCheck2.style.display = "block";
-    correctCheck.style.display = "none";
-    setTimeout(function () {
-      alert("incorrect email or password");
-    }, 100);
+    if (password == json.password && located) {
+      window.location.href = "welcome.html";
+    } else {
+      let passwordField = document.querySelector(".passwordLogin");
+
+      emailSignin.style.border = "3px solid red";
+      passwordField.style.border = "3px solid red";
+      wrongCheck.style.display = "block";
+      wrongCheck2.style.display = "block";
+      correctCheck.style.display = "none";
+      setTimeout(function () {
+        alert("incorrect email or password");
+      }, 100);
+    }
   }
 }
 

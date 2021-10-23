@@ -207,8 +207,14 @@ let correctAnswersCounter = 0;
 let questionsFromLocal = []; ////Array that will contain the questions from local storage////
 let questionsFromLocalLength = localStorage.length;
 console.log(questionsFromLocalLength);
+let countQ = 0;
 for (let j = 0; j < questionsFromLocalLength; j++) {
-  questionsFromLocal[j] = localStorage.key(j);
+  if (localStorage.key(j).includes("@")) {
+    continue;
+  } else {
+    questionsFromLocal[countQ] = localStorage.key(j);
+    countQ++;
+  }
 }
 console.log(questionsFromLocal);
 questionsFromLocal.sort();
@@ -355,3 +361,8 @@ function checkAnswer(correctStatus, userAnswers) {
   }
   quizDiv.appendChild(table); //adding the table to the div//
 }
+let username;
+let insertName = document.querySelector(".insertName");
+let emailSession = sessionStorage.getItem(0);
+let firstName = JSON.parse(localStorage.getItem(emailSession));
+insertName.innerHTML = `${firstName.fname}`;
