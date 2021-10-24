@@ -1,9 +1,30 @@
+'use strict';
+
+//===================Global Declarations==========================//
 let loginForm = document.getElementById("firstForm");
-
 let signupForm = document.querySelector(".signupForm");
-
 let signinLink = document.querySelector(".signinLink");
 let signupLink = document.querySelector(".signupLink");
+let emailField = document.querySelector(".emailSignin");
+let loginPasswordField = document.querySelector(".passwordLogin");
+let signupPasswordField = document.querySelector(".passwordSignup");
+let rsignupPasswordField = document.querySelector(".rpasswordSignup");
+let repeatPasswordValue;
+let msg1 = document.querySelector(".msg1");
+let msg2 = document.querySelector(".msg2");
+let signupBtn = document.querySelector(".signupBtn");
+let signinBtn = document.querySelector(".loginBtn");
+let signupValid = document.querySelector(".emailSignup");
+let signupstatus;
+let correctCheck = document.querySelector(".fa-check-circle");
+let wrongCheck = document.querySelector(".fa-exclamation-circle ");
+let wrongCheck2 = document.querySelector(".iconsPass .fa-exclamation-circle");
+let correctCheckForSignUpValidation = document.querySelector(".signupField  .fa-check-circle");
+let wrongCheckForSignUpValidation = document.querySelector(".signupField  .fa-exclamation-circle");
+
+//-----------------------------------------------------------//
+
+//==============================Toggle Between Create Account and Login Sections======================//
 
 signinLink.addEventListener("click", goSignin);
 function goSignin() {
@@ -16,53 +37,92 @@ function goSignup() {
   signupForm.style.display = " flex";
 
   loginForm.style.display = "none";
+  
+  signupForm.style.display = "none";
+  }
+  signupLink.addEventListener("click", goSignup);
+  function goSignup() {
+    
+    loginForm.style.display = "none";
 }
-let passSignup = document.querySelector(".passwordSignup");
-let rpassSignup = document.querySelector(".rpasswordSignup");
-let msg1 = document.querySelector(".msg1");
-let msg2 = document.querySelector(".msg2");
+//------------------------------------------------------------------------------------------------------------//
 
-passSignup.addEventListener("keyup", invalidPassword);
+//======================================Signup password length and matching validation========================//
+
+//------Validation for Password Field-------//
+signupPasswordField.addEventListener("keyup", invalidPassword);
+
 function invalidPassword() {
-  let c = passSignup.value;
-  let f = c.length;
-
-  if (f <= 6) {
-    msg1.innerHTML = "password must be longer than 6 characters";
-  } else if (f > 6) {
-    msg1.innerHTML = "correct password";
+  let passwordValue= signupPasswordField.value;
+  let passwordLength = passwordValue.length;
+  
+  if (passwordLength < 6) {
+    msg1.innerHTML = "Password must be of a minimum length of 6 characters";
+  }
+  else{
+    msg1.style.display='none';
   }
 }
-rpassSignup.addEventListener("keyup", invalidRepeatPassword);
+//------Validation for Repeat Password Field-------//
+
+rsignupPasswordField.addEventListener("keyup", invalidRepeatPassword);
 function invalidRepeatPassword() {
-  let c = passSignup.value;
-  let f = c.length;
-  let w = rpassSignup.value;
+  let passwordValue= signupPasswordField.value;
+  repeatPasswordValue = rsignupPasswordField.value;
+  
+//-----------Validation for Matching-----------------//
 
-  if (w != c || f <= 6) {
-    msg2.innerHTML = "incorrect password";
-  } else if (w == c && f > 6) {
-    msg2.innerHTML = "correct password";
-    msg1.style.cssText = "visibility:block";
-  }
+if (repeatPasswordValue == passwordValue) {
+  msg2.innerHTML = "correct password";
+} else{
+  msg2.innerHTML = "incorrect password";
 }
-// signup checking on everything /////////////////////////
-let signupBtn = document.querySelector(".signupBtn");
+}
+
+//---------------------------------------------------------------------------------------------------------------//
+
+//==============================================Handling new user creation========================================//
+
+//------------Checking if user follows the email rules on signup section (Before Clicking SignUp Button)--------//
+
+signupValid.addEventListener("keydown", validationEmail);
+function validationEmail(){
+const regx = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+let emailValue = signupValid.value;
+if (emailValue.match(regx)) {
+  signupValid.style.border = "3px solid green";
+  correctCheckForSignUpValidation.style.display = "block";
+  wrongCheckForSignUpValidation.style.display = "none";
+} else {
+  signupValid.style.border = "3px solid red";
+  wrongCheckForSignUpValidation.style.display = "block";
+  correctCheckForSignUpValidation.style.display = "none";
+}
+}
+//------------------------------------------------------------------------------//
+
+//----------------------------On click of the signup button----------------------//
 signupBtn.addEventListener("click", newSignup);
 function newSignup() {
+  
+  //----Function Declarations--------//
   let fname = document.querySelector(".usernameSignup").value;
   let email = document.querySelector(".emailSignup").value;
-  let password = document.querySelector(".passwordSignup").value;
-  // let rpassword = document.querySelector(".rpasswordSignup").value;
-  let yourFirstTime;
-  var user = {
+  let passwordValue = signupPasswordField.value;
+  let user = {
     fname: fname,
     email: email,
-    password: password,
-    yourFirstTime: false,
+    password: passwordValue,
+    yourFirstTime: true,
   };
-  let json = JSON.stringify(user);
-  let signupstatus;
+  let passwordLength = passwordValue.length;
+  repeatPasswordValue = rsignupPasswordField.value;
+  let repeatPasswordlength = repeatPasswordValue.length;
+  const regx = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+  let userEmail = user.email;
+  let sigupEmailRule = userEmail.match(regx);
+  
+  //--------Check if the Email already exists in the local storage----------//
   for (let i = 0; i < localStorage.length; i++) {
     if (localStorage.key(i).includes("@")) {
       if (user.email == localStorage.key(i)) {
@@ -72,43 +132,70 @@ function newSignup() {
       continue;
     }
   }
-  let usernameInput = document.querySelector(".usernameSignup").value;
-  let enterPass = document.querySelector(".passwordSignup");
-  let repeatPass = document.querySelector(".rpasswordSignup");
-  let checkPass = enterPass.value;
-  let value1Check = checkPass.length;
-  let checkRepeat = repeatPass.value;
-  let value2Check = checkRepeat.length;
-  const regx = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
-  let newUser = user.email;
-  let checkNull = newUser.match(regx);
-  console.log(checkNull);
-  if (
-    signupstatus ||
-    value1Check < 6 ||
-    value1Check != value2Check ||
-    usernameInput == "" ||
-    checkNull == null
-  ) {
-    setTimeout(function () {
+  
+  //----------Evaluate the syntax of users inputs to decide whether to store it or not and toggle automaically to login section if true--------//
+  if (signupstatus || passwordLength < 6 || passwordLength != repeatPasswordlength || fname == "" || sigupEmailRule == null){
       alert("incorrect email or password");
-    }, 100);
   } else {
-    localStorage.setItem(user.email, json);
+    let userOjectToString = JSON.stringify(user);
+    localStorage.setItem(userEmail, userOjectToString);
     goSignin();
   }
 }
-////////////////////////////////// login function
-let signinBtn = document.querySelector(".loginBtn");
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------//
+
+
+//======================================================== Handeling Login ===============================================================================//
+
+//------------Login when user presses ENTER KEY -------//
+emailField.addEventListener("keyup",enterKey);
+loginPasswordField.addEventListener("keyup",enterKey);
+function enterKey(event){
+  if(event.keyCode === 13){
+    goQuiz();
+  }
+}
+
+//-----------------------------------------------------//
+
+//-----------------Validation for user email input(Before clicking Login) -------------//
+
+// emailField.addEventListener("keydown", checkEmail);
+// function checkEmail() {
+  //   let email = emailField.value;
+  //   const regx = /^[^ ]+@[^ ]+\.[a-z]{1,3}$/;
+  
+  //   if (email.match(regx)) {
+    //     emailField.style.border = "3px solid green";
+    //     correctCheck.style.display = "block";
+    //     wrongCheck.style.display = "none";
+    //   } else {
+      //     emailField.style.border = "3px solid red";
+      //     wrongCheck.style.display = "block";
+      //     correctCheck.style.display = "none";
+      //   }
+      
+      // }
+      
+      //-----------------------------------------------------------------------------------// 
+      
+      
 signinBtn.addEventListener("click", goQuiz);
+//------------------------What happens when user clicks login button-------------------//
 function goQuiz() {
-  let email = document.querySelector(".emailSignin").value;
-  let password = document.querySelector(".passwordLogin").value;
+  //-----------------Function Declarations---------------------//
+  let email = emailField.value;
+  let password = loginPasswordField.value;
   let located = false;
   let locatedIndex;
   sessionStorage.setItem("0", email);
+  let userObjectFromLocalStorage;
 
-  // searching for users email in local storage
+  //------------------------------------------------------------//
+
+  //---------------- searching for users email in local storage ------------//
+
   for (let i = 0; i < localStorage.length; i++) {
     if (localStorage.key(i).includes("@")) {
       if (email == localStorage.key(i)) {
@@ -119,22 +206,18 @@ function goQuiz() {
       }
     }
   }
-
-  let emailSignin = document.querySelector(".emailSignin");
-  let correctCheck = document.querySelector(".fa-check-circle");
-  let wrongCheck = document.querySelector(".fa-exclamation-circle ");
-  let wrongCheck2 = document.querySelector(".iconsPass .fa-exclamation-circle");
-  let json;
+  //--------------------------------------------------------------------------//
+  
+  //-------------------Handeling if the email and password matches data in local storage---------------//
+  
   if (located) {
-    json = JSON.parse(localStorage.getItem(localStorage.key(locatedIndex)));
-
-    if (password == json.password && located) {
+    userObjectFromLocalStorage = JSON.parse(localStorage.getItem(localStorage.key(locatedIndex)));
+    
+    if (password == userObjectFromLocalStorage.password && located) {
       window.location.href = "welcome.html";
     } else {
-      let passwordField = document.querySelector(".passwordLogin");
-
-      emailSignin.style.border = "3px solid red";
-      passwordField.style.border = "3px solid red";
+      emailField.style.border = "3px solid red";
+      loginPasswordField.style.border = "3px solid red";
       wrongCheck.style.display = "block";
       wrongCheck2.style.display = "block";
       correctCheck.style.display = "none";
@@ -144,45 +227,9 @@ function goQuiz() {
     }
   }
 }
+//------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-// email validation signin
+//تم بحمد الله //
 
-let emailSignin = document.querySelector(".emailSignin");
-emailSignin.addEventListener("keydown", checkEmail);
-function checkEmail() {
-  let email = document.querySelector(".emailSignin").value;
-  const regx = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
-  let correctCheck = document.querySelector(".fa-check-circle");
-  let wrongCheck = document.querySelector(".fa-exclamation-circle ");
 
-  if (email.match(regx)) {
-    emailSignin.style.border = "3px solid green";
-    correctCheck.style.display = "block";
-    wrongCheck.style.display = "none";
-  } else {
-    emailSignin.style.border = "3px solid red";
-    wrongCheck.style.display = "block";
-    correctCheck.style.display = "none";
-  }
-}
-// email validation signup //////////
-let signupValid = document.querySelector(".emailSignup");
-signupValid.addEventListener("keydown", validationEmail);
-function validationEmail() {
-  let correctCheck = document.querySelector(".signupField  .fa-check-circle");
-  let wrongCheck = document.querySelector(
-    ".signupField  .fa-exclamation-circle"
-  );
 
-  const regx = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
-  let emailValue = document.querySelector(".emailSignup").value;
-  if (emailValue.match(regx)) {
-    signupValid.style.border = "3px solid green";
-    correctCheck.style.display = "block";
-    wrongCheck.style.display = "none";
-  } else {
-    signupValid.style.border = "3px solid red";
-    wrongCheck.style.display = "block";
-    correctCheck.style.display = "none";
-  }
-}

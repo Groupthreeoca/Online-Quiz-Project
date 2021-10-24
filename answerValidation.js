@@ -91,7 +91,15 @@ for (let i = 0, length = Question.length; i < length; i++) {
 //===============================================Declarations================================================//
 
 //Declarations for answer validation and moving between questions//
+//Getting Username from session storage//
+let username;
+let passOrFail;
+let insertName = document.querySelector(".insertName");
+let loggedinUserBefore = sessionStorage.getItem(0);
+let loggedinUser = JSON.parse(localStorage.getItem(loggedinUserBefore));
+//////////////////////////////////////////
 const nextButton = document.querySelector(".nextButton");
+let mainDiv = document.querySelector("main");
 let quizQuestion = document.querySelector(".quiz-question");
 let quizAnswer = document.getElementsByTagName("label");
 let letStart = document.querySelector(".letsStart");
@@ -143,6 +151,17 @@ saveCorrectAnswersToStorage(correctAnswers);
 
 
 //=====================================================Initial Rules (DOM Manipulation)=====================================================//
+if(!loggedinUserBefore){
+  mainDiv.innerHTML = "<h1> YOU HAVE NO ACCESS FOR THIS QUIZ, PLEASE LOGIN!"
+}
+
+else if(!(loggedinUser.yourFirstTime)){
+  mainDiv.innerHTML = `You ${loggedinUser.passOrFail} The Exam and Your Result is ${loggedinUser.yourScore}`
+}
+else{
+insertName.innerHTML = `${loggedinUser.fname}`;
+}
+
 nextButton.style.display = "none";
 
 //=====================================================Let's Start Button Dom Manipulation==================================================//
@@ -212,24 +231,29 @@ function validateUserAnswer(){
 }
 
 function endExamClickFunction(){
-  
+  loggedinUser.yourFirstTime = false;
+  loggedinUser.yourScore = `${correctAnswersCounter}/10`;
   let content = document.querySelector(".quiz-content");
   content.innerHTML = "<h2>You Completed The Quiz</h2>";
   content.innerHTML += `<p>Below are your results:</p>`;
   content.innerHTML +=
-    `<h2>` +
-    correctAnswersCounter +
-    ` out of ${currentQuestion} questions </h2>`;
-
+  `<h2>` +
+  correctAnswersCounter +
+  ` out of ${currentQuestion} questions </h2>`;
+  
   if (correctAnswersCounter >= currentQuestion / 2) {
+    loggedinUser.passOrFail = "Passed";
     console.log("toqa");
     document.body.style.backgroundColor = "#4caf50";
     content.innerHTML += "<h2>You Passed</h2>";
   } else {
+    loggedinUser.passOrFail = "Failed";
     document.body.style.backgroundColor = "#f44336";
     content.innerHTML += "<h2>You Failed</h2>";
     console.log("toqaaaaaaaaaa");
   }
+  localStorage.setItem(loggedinUserBefore, JSON.stringify(loggedinUser));
+
   content.innerHTML += `<input type="button" value="Show Results" class="show" >`;
   content.innerHTML += `<input type="button" value="Hide Results" class="hideBtn" >`;
 
@@ -355,8 +379,4 @@ function checkAnswer(correctStatus, userAnswers) {
 
 
 
-let username;
-let insertName = document.querySelector(".insertName");
-let emailSession = sessionStorage.getItem(0);
-let firstName = JSON.parse(localStorage.getItem(emailSession));
-insertName.innerHTML = `${firstName.fname}`;
+
