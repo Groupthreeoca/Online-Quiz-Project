@@ -208,7 +208,8 @@ function validateUserAnswer(){
 }
 
 function endExamClickFunction(){
-    let content = document.querySelector(".quiz-content");
+  
+  let content = document.querySelector(".quiz-content");
   content.innerHTML = "<h2>You Completed The Quiz</h2>";
   content.innerHTML += `<p>Below are your results:</p>`;
   content.innerHTML +=
@@ -260,7 +261,7 @@ function endExamClickFunction(){
   });
 
 }
-//==============Next Button Event Listner=================//
+//==============Next Button and End Exam Event Listner=================//
 nextButton.addEventListener("click", function () {
   value = false;
   //check if the user selected one of the radios//
@@ -285,9 +286,7 @@ nextButton.addEventListener("click", function () {
         quizAnswer[1].innerHTML = Question[count].option2;
         quizAnswer[2].innerHTML = Question[count].option3;
 
-        //   When moving to the last question hidden the Next button and show the end quiz
         if (count === Question.length - 1) {
-          nextButton.style.display = "none";
           nextButton.value = "End-Exam";
         }
       }
@@ -356,4 +355,4 @@ let username;
 let insertName = document.querySelector(".insertName");
 let emailSession = sessionStorage.getItem(0);
 let firstName = JSON.parse(localStorage.getItem(emailSession));
-insertName.innerHTML = `${firstName.fname}`; 
+insertName.innerHTML = `${firstName.fname}`;
