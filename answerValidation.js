@@ -99,6 +99,7 @@ let showRadio = document.getElementsByClassName("radio");
 let endQuiz = document.querySelector(".endQuiz");
 let welcoming = document.querySelector(".welcoming");
 let quizTitle = document.querySelector(".quiz-title");
+let divChoice= document.getElementsByClassName("choice");
 let currentQuestion = 1;
 let correctStatus = [];
 let userAnswers = [];
@@ -154,6 +155,9 @@ letStart.addEventListener("click", function () {
   //show Next button
   nextButton.style.display = "inline-block";
 
+  for(let i=0; i<divChoice.length; i++){
+    divChoice[i].style.display = "flex";
+  }
   //show Radio button
   for (let i = 0; i < showRadio.length; i++)
     showRadio[i].style.visibility = "visible";
