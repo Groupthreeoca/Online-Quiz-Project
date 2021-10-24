@@ -28,16 +28,21 @@ let wrongCheckForSignUpValidation = document.querySelector(".signupField  .fa-ex
 
 signinLink.addEventListener("click", goSignin);
 function goSignin() {
-  loginForm.style.cssText =
-  "display:block;display: flex; flex-direction: column;margin-left: 5em;  text-align: center;border: 1px solid;border-radius: 10px;margin-top: 1em;margin-bottom: 1em;padding: 1em;margin-right: 5em;";
+  loginForm.style.display=" flex";
+
+  signupForm.style.display = "none";
+}
+signupLink.addEventListener("click", goSignup);
+function goSignup() {
+  signupForm.style.display = " flex";
+
+  loginForm.style.display = "none";
   
   signupForm.style.display = "none";
   }
   signupLink.addEventListener("click", goSignup);
   function goSignup() {
-    signupForm.style.cssText =
-    "display:block;display: flex; flex-direction: column;margin-left: 5em;  text-align: center;border: 1px solid;border-radius: 10px;margin-top: 1em;margin-bottom: 1em;padding: 1em;margin-right: 5em;";
-  
+    
     loginForm.style.display = "none";
 }
 //------------------------------------------------------------------------------------------------------------//

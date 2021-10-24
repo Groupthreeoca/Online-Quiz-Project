@@ -109,7 +109,7 @@
       .navbar ul li a {
         text-decoration: none;
         font-size: 2em;
-        color: black;
+        color: var(--red);
       }
 
       /* icons in hover scale  */
