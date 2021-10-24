@@ -248,7 +248,17 @@ function endExamClickFunction(){
       hideResultBtn.style.display = "none";
       showResultBtn.style.display = "inline-block";
     });
-  })
+    
+      hideResultBtn.addEventListener("click", function () {
+        //when the user clicks on the submit button//
+        console.log("hide");
+        table.style.display = "none";
+        content;
+        hideResultBtn.style.display = "none";
+        showResultBtn.style.display = "inline-block";
+      });
+  });
+
 }
 //==============Next Button Event Listner=================//
 nextButton.addEventListener("click", function () {
@@ -304,12 +314,6 @@ nextButton.addEventListener("click", function () {
 
 
 
-
-
-
-
-
-
 let table = document.createElement("table"); //creating a table to show the user's answers//
 function checkAnswer(correctStatus, userAnswers) {
 
@@ -352,4 +356,4 @@ let username;
 let insertName = document.querySelector(".insertName");
 let emailSession = sessionStorage.getItem(0);
 let firstName = JSON.parse(localStorage.getItem(emailSession));
-// insertName.innerHTML = `${firstName.fname}`; 
+insertName.innerHTML = `${firstName.fname}`; 
