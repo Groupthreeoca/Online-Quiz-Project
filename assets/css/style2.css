@@ -161,6 +161,14 @@
 
       }
 
+      .hideBtn{
+        /* display: none; */
+         padding: 0.5em 1em;
+         background-color: var(--primary);
+         border: var(--primary);
+         font-size: 1em;
+      }
+
       ul {
         list-style-type: none;
       }

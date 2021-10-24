@@ -252,6 +252,30 @@ function saveCorrectAnswersToStorage(correctAnswers) {
 saveCorrectAnswersToStorage(correctAnswers);
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
+<<<<<<< HEAD
+=======
+// A) Global Decelerations
+const nextButton = document.querySelector(".nextButton");
+let currentQuestion = 1;
+let correctStatus = [];
+let userAnswers = [];
+let correctAnswersCounter = 0;
+let questionsFromLocal = []; ////Array that will contain the questions from local storage////
+let questionsFromLocalLength = localStorage.length;
+console.log(questionsFromLocalLength);
+let countQ = 0;
+for (let j = 0; j < questionsFromLocalLength; j++) {
+  if (localStorage.key(j).includes("@")) {//
+    continue;
+  } else {
+    questionsFromLocal[countQ] = localStorage.key(j);
+    countQ++;
+  }
+}
+console.log(questionsFromLocal);
+questionsFromLocal.sort();
+console.log(questionsFromLocal);
+>>>>>>> 3e79a9a3a1927ae6f384af551f2973563999f450
 
 
 
@@ -260,8 +284,11 @@ saveCorrectAnswersToStorage(correctAnswers);
 /////////////////////////////////////////////////
 ////////////Toqa////////////////////////
 
+
 let endExamButton = document.querySelector(".endQuiz");
 let showResultBtn;
+let hideResultBtn;
+let showCounter = 0;
 endExamButton.addEventListener("click", showFinalResults);
 function showFinalResults() {
   // in click at Next button Execution the function
@@ -324,46 +351,74 @@ function showFinalResults() {
     console.log("toqaaaaaaaaaa");
   }
   content.innerHTML += `<input type="button" value="Show Results" class="show" >`;
+  content.innerHTML += `<input type="button" value="Hide Results" class="hideBtn" >`;
+
   showResultBtn = document.querySelector(".show");
+  hideResultBtn = document.querySelector(".hideBtn");
+
   showResultBtn.addEventListener("click", function () {
+
     //when the user clicks on the submit button//
-    checkAnswer(correctStatus, userAnswers); //calling the checkAnswer function//
+    checkAnswer(correctStatus, userAnswers);
+
+    showResultBtn.style.display = "none";
+    hideResultBtn.style.display = "inline-block";
+    table.style.display = "block";
+    hideResultBtn();
+    
   });
+
 }
 
+
+let table = document.createElement("table"); //creating a table to show the user's answers//
 function checkAnswer(correctStatus, userAnswers) {
+
   let examQuestion = [];
   for (let i = 0, length = Question.length; i < length; i++) {
     examQuestion[i] = Question[i].question;
   }
 
-  let table = document.createElement("table"); //creating a table to show the user's answers//
   let quizDiv = document.querySelector(".quiz-content"); //selecting the div where the table will be inserted//
-  for (let i = 0; i < userAnswers.length; i++) {
-    //
-    let listItem = document.createElement("tr"); //creating a row for each question//
-    let questionCell = document.createElement("td"); //creating a cell for each question//
-    questionCell.innerHTML = examQuestion[i];
+  if (showCounter < 1) {
+    for (let i = 0; i < userAnswers.length; i++) {
+      //
+      let listItem = document.createElement("tr"); //creating a row for each question//
+      let questionCell = document.createElement("td"); //creating a cell for each question//
+      questionCell.innerHTML = examQuestion[i];
 
-    let userAnswerCell = document.createElement("td"); //creating a cell for each user answer//
-    userAnswerCell.innerHTML = `${userAnswers[i]}`;
+      let userAnswerCell = document.createElement("td"); //creating a cell for each user answer//
+      userAnswerCell.innerHTML = `${userAnswers[i]}`;
 
-    if (correctStatus[i] == true) {
-      //if the user answer is correct//
+      if (correctStatus[i] == true) {
+        //if the user answer is correct//
 
-      userAnswerCell.style.color = "green"; //changing the color of the user answer cell to green//
-    } else {
-      userAnswerCell.style.color = "red"; //changing the color of the user answer cell to red//
+        userAnswerCell.style.color = "green"; //changing the color of the user answer cell to green//
+      } else {
+        userAnswerCell.style.color = "red"; //changing the color of the user answer cell to red//
+      }
+
+      table.appendChild(listItem); //adding the row to the table//
+      listItem.appendChild(questionCell); //adding the question cell to the row//
+      listItem.appendChild(userAnswerCell); //adding the user answer cell to the row//
     }
-
-    table.appendChild(listItem); //adding the row to the table//
-    listItem.appendChild(questionCell); //adding the question cell to the row//
-    listItem.appendChild(userAnswerCell); //adding the user answer cell to the row//
-  }
-  quizDiv.appendChild(table); //adding the table to the div//
+    quizDiv.appendChild(table); //adding the table to the div//
+  } showCounter++;
 }
+
+
+  hideResultBtn.addEventListener("click", function () {
+    //when the user clicks on the submit button//
+    console.log("hide");
+    table.style.display = "none";
+    content;
+    hideResultBtn.style.display = "none";
+    showResultBtn.style.display = "inline-block";
+  });
+
+
 let username;
 let insertName = document.querySelector(".insertName");
 let emailSession = sessionStorage.getItem(0);
 let firstName = JSON.parse(localStorage.getItem(emailSession));
-insertName.innerHTML = `${firstName.fname}`;
+// insertName.innerHTML = `${firstName.fname}`; 
