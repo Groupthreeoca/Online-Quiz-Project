@@ -47,7 +47,7 @@
       <div class="loginForm" id="firstForm" >
         <h2>Login</h2>
         <div class="field">
-          <input class="emailSignin" type="text" placeholder="email@example.com" required />
+          <input class="emailSignin" style="text-transform: lowercase" type="text" placeholder="email@example.com" required />
           <div class="icons">
             <i class="fas fa-check-circle"></i>
             <i class="fas fa-exclamation-circle"></i>
@@ -66,8 +66,15 @@
       </div>
       <div class="signupForm">
         <h2>Create Account</h2>
-        <input class="usernameSignup" type="text" placeholder="username" />
-        <input class="emailSignup" type="email" placeholder="email" required/>
+        <input class="usernameSignup"  type="text" placeholder="username" required/>
+        <div class="signupField">
+          <input class="emailSignup" style="text-transform: lowercase" type="email" placeholder="email" required/>
+        <div class="iconsEmailSignup">
+          <i class="fas fa-check-circle"></i>
+          <i class="fas fa-exclamation-circle"></i>
+        </div>
+        </div>
+        
         <input class="passwordSignup" type="password" placeholder="password" required/>
         <div class="msg1"></div>
         <input class="rpasswordSignup" type="password" placeholder="confirm password" required/>

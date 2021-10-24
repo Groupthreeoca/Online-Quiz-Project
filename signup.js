@@ -48,21 +48,22 @@ function invalidRepeatPassword() {
     msg1.style.cssText = "visibility:block";
   }
 }
-
+// signup checking on everything /////////////////////////
 let signupBtn = document.querySelector(".signupBtn");
 signupBtn.addEventListener("click", newSignup);
 function newSignup() {
-  var fname = document.querySelector(".usernameSignup").value;
-  var email = document.querySelector(".emailSignup").value;
-  var password = document.querySelector(".passwordSignup").value;
-
+  let fname = document.querySelector(".usernameSignup").value;
+  let email = document.querySelector(".emailSignup").value;
+  let password = document.querySelector(".passwordSignup").value;
+  // let rpassword = document.querySelector(".rpasswordSignup").value;
+  let yourFirstTime;
   var user = {
     fname: fname,
     email: email,
     password: password,
+    yourFirstTime: false,
   };
-  console.log(user);
-  var json = JSON.stringify(user);
+  let json = JSON.stringify(user);
   let signupstatus;
   for (let i = 0; i < localStorage.length; i++) {
     if (localStorage.key(i).includes("@")) {
@@ -73,24 +74,34 @@ function newSignup() {
       continue;
     }
   }
-
+  let usernameInput = document.querySelector(".usernameSignup").value;
   let enterPass = document.querySelector(".passwordSignup");
   let repeatPass = document.querySelector(".rpasswordSignup");
   let checkPass = enterPass.value;
   let value1Check = checkPass.length;
-
   let checkRepeat = repeatPass.value;
   let value2Check = checkRepeat.length;
-
-  if (signupstatus || value1Check < 6 || value1Check != value2Check) {
-    alert("email already exist or incorrect password");
+  const regx = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+  let newUser = user.email;
+  let checkNull = newUser.match(regx);
+  console.log(checkNull);
+  if (
+    signupstatus ||
+    value1Check < 6 ||
+    value1Check != value2Check ||
+    usernameInput == "" ||
+    checkNull == null
+  ) {
+    setTimeout(function () {
+      alert("incorrect email or password");
+    }, 100);
   } else {
+    localStorage.setItem(user.email, json);
     goSignin();
   }
-  localStorage.setItem(user.email, json);
 }
+////////////////////////////////// login function
 let signinBtn = document.querySelector(".loginBtn");
-// login function
 signinBtn.addEventListener("click", goQuiz);
 function goQuiz() {
   let email = document.querySelector(".emailSignin").value;
@@ -136,7 +147,7 @@ function goQuiz() {
   }
 }
 
-// email validation
+// email validation signin
 
 let emailSignin = document.querySelector(".emailSignin");
 emailSignin.addEventListener("keydown", checkEmail);
@@ -152,6 +163,27 @@ function checkEmail() {
     wrongCheck.style.display = "none";
   } else {
     emailSignin.style.border = "3px solid red";
+    wrongCheck.style.display = "block";
+    correctCheck.style.display = "none";
+  }
+}
+// email validation signup //////////
+let signupValid = document.querySelector(".emailSignup");
+signupValid.addEventListener("keydown", validationEmail);
+function validationEmail() {
+  let correctCheck = document.querySelector(".signupField  .fa-check-circle");
+  let wrongCheck = document.querySelector(
+    ".signupField  .fa-exclamation-circle"
+  );
+
+  const regx = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+  let emailValue = document.querySelector(".emailSignup").value;
+  if (emailValue.match(regx)) {
+    signupValid.style.border = "3px solid green";
+    correctCheck.style.display = "block";
+    wrongCheck.style.display = "none";
+  } else {
+    signupValid.style.border = "3px solid red";
     wrongCheck.style.display = "block";
     correctCheck.style.display = "none";
   }

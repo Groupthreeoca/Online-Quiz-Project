@@ -146,6 +146,29 @@ main {
   font-size: 20px;
   display: none;
 }
+.signupField {
+  display: flex;
+  position: relative;
+}
+.signupField input {
+  width: 100%;
+}
+.signupField .iconsEmailSignup {
+  position: absolute;
+  right: 15px;
+  top: 40%;
+  transform: translateY(-50%);
+}
+.signupField .iconsEmailSignup .fa-check-circle {
+  color: green;
+  font-size: 20px;
+  display: none;
+}
+.signupField .iconsEmailSignup .fa-exclamation-circle {
+  color: red;
+  font-size: 20px;
+  display: none;
+}
 /* here is the end */
 .loginForm input,
 button {
