@@ -343,8 +343,15 @@ function showFinalResults() {
     showResultBtn.style.display = "none";
     hideResultBtn.style.display = "inline-block";
     table.style.display = "block";
-    hideResultBtn();
     
+      hideResultBtn.addEventListener("click", function () {
+        //when the user clicks on the submit button//
+        console.log("hide");
+        table.style.display = "none";
+        content;
+        hideResultBtn.style.display = "none";
+        showResultBtn.style.display = "inline-block";
+      });
   });
 
 }
@@ -386,18 +393,11 @@ function checkAnswer(correctStatus, userAnswers) {
 }
 
 
-  hideResultBtn.addEventListener("click", function () {
-    //when the user clicks on the submit button//
-    console.log("hide");
-    table.style.display = "none";
-    content;
-    hideResultBtn.style.display = "none";
-    showResultBtn.style.display = "inline-block";
-  });
+
 
 
 let username;
 let insertName = document.querySelector(".insertName");
 let emailSession = sessionStorage.getItem(0);
 let firstName = JSON.parse(localStorage.getItem(emailSession));
-// insertName.innerHTML = `${firstName.fname}`; 
+insertName.innerHTML = `${firstName.fname}`; 
