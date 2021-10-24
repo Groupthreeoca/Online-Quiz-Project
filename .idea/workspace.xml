@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="235cbf26-4184-4c83-8256-cf1413dec4fd" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/answerValidation.js" beforeDir="false" afterPath="$PROJECT_DIR$/answerValidation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/css/style2.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/style2.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/welcome.html" beforeDir="false" afterPath="$PROJECT_DIR$/welcome.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -37,6 +39,7 @@
       <option name="presentableId" value="Default" />
       <updated>1635010846229</updated>
       <workItem from="1635010848773" duration="473000" />
+      <workItem from="1635067889076" duration="2000" />
     </task>
     <servers />
   </component>
