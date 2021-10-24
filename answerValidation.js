@@ -252,34 +252,6 @@ function saveCorrectAnswersToStorage(correctAnswers) {
 saveCorrectAnswersToStorage(correctAnswers);
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-<<<<<<< HEAD
-=======
-// A) Global Decelerations
-const nextButton = document.querySelector(".nextButton");
-let currentQuestion = 1;
-let correctStatus = [];
-let userAnswers = [];
-let correctAnswersCounter = 0;
-let questionsFromLocal = []; ////Array that will contain the questions from local storage////
-let questionsFromLocalLength = localStorage.length;
-console.log(questionsFromLocalLength);
-let countQ = 0;
-for (let j = 0; j < questionsFromLocalLength; j++) {
-  if (localStorage.key(j).includes("@")) {//
-    continue;
-  } else {
-    questionsFromLocal[countQ] = localStorage.key(j);
-    countQ++;
-  }
-}
-console.log(questionsFromLocal);
-questionsFromLocal.sort();
-console.log(questionsFromLocal);
->>>>>>> 3e79a9a3a1927ae6f384af551f2973563999f450
-
-
-
-
 //////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////
 ////////////Toqa////////////////////////
@@ -355,6 +327,7 @@ function showFinalResults() {
 
   showResultBtn = document.querySelector(".show");
   hideResultBtn = document.querySelector(".hideBtn");
+  hideResultBtn.style.display = "none"
 
   showResultBtn.addEventListener("click", function () {
 
@@ -364,7 +337,14 @@ function showFinalResults() {
     showResultBtn.style.display = "none";
     hideResultBtn.style.display = "inline-block";
     table.style.display = "block";
-    hideResultBtn();
+    hideResultBtn.addEventListener("click", function () {
+      //when the user clicks on the submit button//
+      console.log("hide");
+      table.style.display = "none";
+      content;
+      hideResultBtn.style.display = "none";
+      showResultBtn.style.display = "inline-block";
+    });
     
   });
 
@@ -407,14 +387,6 @@ function checkAnswer(correctStatus, userAnswers) {
 }
 
 
-  hideResultBtn.addEventListener("click", function () {
-    //when the user clicks on the submit button//
-    console.log("hide");
-    table.style.display = "none";
-    content;
-    hideResultBtn.style.display = "none";
-    showResultBtn.style.display = "inline-block";
-  });
 
 
 let username;
