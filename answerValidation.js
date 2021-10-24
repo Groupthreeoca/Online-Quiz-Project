@@ -83,39 +83,64 @@ let Question = [
   },
 ];
 
+
+
+
+//=======================================Declarations============================//
+
+//Saving the correct answers into the local storage//
 let correctAnswers = [];
 for (let i = 0, length = Question.length; i < length; i++) {
   correctAnswers[i] = Question[i].Answer;
 }
-
+//Declarations for answer validation and moving between questions//
+const nextButton = document.querySelector(".nextButton");
 let quizQuestion = document.querySelector(".quiz-question");
 let quizAnswer = document.getElementsByTagName("label");
-let nextCheck = document.querySelector(".nextButton");
 let letStart = document.querySelector(".letsStart");
 let showRadio = document.getElementsByClassName("radio");
 let endQuiz = document.querySelector(".endQuiz");
 let welcoming = document.querySelector(".welcoming");
 let quizTitle = document.querySelector(".quiz-title");
-// radio button
 let answerSelect = document.getElementsByName("answer");
-
+let currentQuestion = 1;
+let correctStatus = [];
+let userAnswers = [];
+let userCurrentAnswerText;
+let radioChoices;
+let correctAnswersCounter = 0;
 let value = false;
 let count = 1;
+//Saving question keys from Local Storage into an array//
+let questionsFromLocal = []; ////Array that will contain the questions from local storage////
+let questionsFromLocalLength = localStorage.length;
+let countQ = 0;
+for (let j = 0; j < questionsFromLocalLength; j++) {
+  if (localStorage.key(j).includes("@")) {
+    continue;
+  } else {
+    questionsFromLocal[countQ] = localStorage.key(j);
+    countQ++;
+  }
+}
+questionsFromLocal.sort();
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+
 // hidden Next and  End Quiz before start the quiz
 endQuiz.style.display = "none";
-nextCheck.style.display = "none";
+nextButton.style.display = "none";
 
-// in click at let's start Execution the function
+//////////////==================Let's Start Button Dom Manipulation==========================///////////
+
 letStart.addEventListener("click", function () {
-  // hidden quizTitle
+  //hide quizTitle
   quizTitle.style.display = "none";
-
-  // in click let`s start hidden welcoming
+  //hide welcoming
   welcoming.style.display = "none";
-  // show Next button
-  nextCheck.style.display = "inline-block";
+  //show Next button
+  nextButton.style.display = "inline-block";
 
-  //    show Radio button
+  //show Radio button
   for (let i = 0; i < showRadio.length; i++)
     showRadio[i].style.visibility = "visible";
 
@@ -131,13 +156,15 @@ letStart.addEventListener("click", function () {
   quizAnswer[2].innerHTML = Question[0].option3;
 });
 
-let userCurrentAnswerText;
-let radioChoices;
-// in click at Next button Execution the function
-nextCheck.addEventListener("click", function () {
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//===================Validationg Users Answers + Moving To The Next Question=========================////
+
+// On click at Next button Execution the function
+nextButton.addEventListener("click", function () {
   radioChoices = document.querySelectorAll('input[name="answer"]');
-  // console.log(questionsFromLocal)
-  // B1) Determining which answer the user has chosen (will save the input value as a number)//
+
+  // 1) Determining which answer the user has chosen (will save the input value as a number)//
   let userCurrentAnswerValue;
   radioChoices.forEach(function (item) {
     if (item.checked) {
@@ -152,11 +179,36 @@ nextCheck.addEventListener("click", function () {
   for (let i = 0; i < answerSelect.length; i++) {
     if (answerSelect[i].checked) value = true;
   }
-
-  // console.log(value);
-
   //  if the user select one of options
-  if (value == true) {
+  if (value) {
+  /* -Comparing user answer with correct answer.
+    -Editing the correct counter if the answer is correct.
+    -Pushing the correct status to correctStatus Array:
+    *if correct answer-->i will push true
+    *if wrong answer--> i will push false
+    */
+  if (
+    userCurrentAnswerText ==
+    localStorage.getItem(questionsFromLocal[currentQuestion - 1])
+  ) {
+    console.log("correct ya ghaly");
+    correctAnswersCounter++;
+    correctStatus.push(true);
+  } else {
+    console.log("wrong ya 7mar");
+    correctStatus.push(false);
+  }
+  // console.log(userCurrentAnswerText)//To check if the user's answer is correct or not//
+  userAnswers.push(userCurrentAnswerText); //pushing the user answer to the userAnswers array//
+  console.log(currentQuestion);
+
+  currentQuestion++; //incrementing the current question number//
+  //Resetting the selection of the user//
+  console.log(currentQuestion);
+
+  radioChoices.forEach(function (item) {
+    item.checked = false;
+  });
     // show the question
     for (let i = 1; i < Question.length; i++) {
       // count=1
@@ -168,7 +220,7 @@ nextCheck.addEventListener("click", function () {
 
       //   When moving to the last question hidden the Next button and show the end quiz
       if (count === Question.length - 1) {
-        nextCheck.style.display = "none";
+        nextButton.style.display = "none";
         endQuiz.style.display = "inline-block";
       }
     }
@@ -199,65 +251,6 @@ function saveCorrectAnswersToStorage(correctAnswers) {
 }
 saveCorrectAnswersToStorage(correctAnswers);
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
-//Task #2
-/////////Comparing user answer with correct answer from local storage when the user click on next button////////
-
-// A) Global Decelerations
-const nextButton = document.querySelector(".nextButton");
-let currentQuestion = 1;
-let correctStatus = [];
-let userAnswers = [];
-let correctAnswersCounter = 0;
-let questionsFromLocal = []; ////Array that will contain the questions from local storage////
-let questionsFromLocalLength = localStorage.length;
-console.log(questionsFromLocalLength);
-let countQ = 0;
-for (let j = 0; j < questionsFromLocalLength; j++) {
-  if (localStorage.key(j).includes("@")) {//
-    continue;
-  } else {
-    questionsFromLocal[countQ] = localStorage.key(j);
-    countQ++;
-  }
-}
-console.log(questionsFromLocal);
-questionsFromLocal.sort();
-console.log(questionsFromLocal);
-
-// B) The validation only occurs when the user clicks next button and the function needs to read the user's answer from the selected radio.
-
-nextButton.addEventListener("click", function () {
-  /* B2) -Comparing user answer with correct answer.
-    -Editing the correct counter if the answer is correct.
-    -Pushing the correct status to correctStatus Array:
-    *if correct answer-->i will push true
-    *if wrong answer--> i will push false
-    */
-  console.log(localStorage.getItem(questionsFromLocal[currentQuestion - 1]));
-  console.log(userCurrentAnswerText);
-  if (
-    userCurrentAnswerText ==
-    localStorage.getItem(questionsFromLocal[currentQuestion - 1])
-  ) {
-    console.log("correct ya ghaly");
-    correctAnswersCounter++;
-    correctStatus.push(true);
-  } else {
-    console.log("wrong ya 7mar");
-    correctStatus.push(false);
-  }
-  // console.log(userCurrentAnswerText)//To check if the user's answer is correct or not//
-  userAnswers.push(userCurrentAnswerText); //pushing the user answer to the userAnswers array//
-  console.log(currentQuestion);
-
-  currentQuestion++; //incrementing the current question number//
-  //Resetting the selection of the user//
-  console.log(currentQuestion);
-
-  radioChoices.forEach(function (item) {
-    item.checked = false;
-  });
-});
 
 //////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////
@@ -271,7 +264,7 @@ let showCounter = 0;
 endExamButton.addEventListener("click", showFinalResults);
 function showFinalResults() {
   // in click at Next button Execution the function
-  // nextCheck.addEventListener("click",function(){
+  // nextButton.addEventListener("click",function(){
   radioChoices = document.querySelectorAll('input[name="answer"]');
   // console.log(questionsFromLocal)
   // B1) Determining which answer the user has chosen (will save the input value as a number)//
@@ -334,6 +327,7 @@ function showFinalResults() {
 
   showResultBtn = document.querySelector(".show");
   hideResultBtn = document.querySelector(".hideBtn");
+  hideResultBtn.style.display = "none"
 
   showResultBtn.addEventListener("click", function () {
 
@@ -343,6 +337,14 @@ function showFinalResults() {
     showResultBtn.style.display = "none";
     hideResultBtn.style.display = "inline-block";
     table.style.display = "block";
+    hideResultBtn.addEventListener("click", function () {
+      //when the user clicks on the submit button//
+      console.log("hide");
+      table.style.display = "none";
+      content;
+      hideResultBtn.style.display = "none";
+      showResultBtn.style.display = "inline-block";
+    });
     
       hideResultBtn.addEventListener("click", function () {
         //when the user clicks on the submit button//
@@ -391,7 +393,6 @@ function checkAnswer(correctStatus, userAnswers) {
     quizDiv.appendChild(table); //adding the table to the div//
   } showCounter++;
 }
-
 
 
 
