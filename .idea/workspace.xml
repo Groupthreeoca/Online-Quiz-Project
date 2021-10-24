@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="235cbf26-4184-4c83-8256-cf1413dec4fd" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/css/style2.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/style2.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/welcome.html" beforeDir="false" afterPath="$PROJECT_DIR$/welcome.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -26,6 +31,10 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -37,6 +46,9 @@
       <option name="presentableId" value="Default" />
       <updated>1635010846229</updated>
       <workItem from="1635010848773" duration="473000" />
+      <workItem from="1635067889076" duration="2000" />
+      <workItem from="1635072754405" duration="5000" />
+      <workItem from="1635072762861" duration="1704000" />
     </task>
     <servers />
   </component>

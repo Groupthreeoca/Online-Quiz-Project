@@ -75,22 +75,22 @@
     
                 <div class="quiz-answer">
                     <!-- <form action=""> -->
-                        <ul>
-                       <li><input type="radio" name="answer"  value="1"  class="radio"><label for="answer1" id="a1"></label></li> 
-                        <!-- <label for="answer1">Answer 1</label> -->
-                        
-                        <li><input type="radio" name="answer"   value="2" class="radio"><label for="answer1" id="a2"></label></li>
-                        <!-- <label for="answer2">Answer 2</label> -->
-                    
-                       <li><input type="radio" name="answer"   value="3" class="radio"><label for="answer1" id=a3></label></li> 
-                        <!-- <label for="answer3">Answer 3</label> -->
-                  
-                
-                    </ul>
+                    <div class="options">
+                        <input type="radio" id="answer1" name="answer"  value="1"  class="radio"><label for="answer1" id="a1"></label>
+                    </div>
+                    <div class="options">
+                        <input type="radio" id="answer2" name="answer"  value="2"  class="radio"><label for="answer2" id="a2"></label>
+                    </div>
+                    <div class="options">
+                        <input type="radio" id="answer3" name="answer"  value="3"  class="radio"><label for="answer3" id="a3"></label>
+                    </div>
+                    <!-- /.options -->
+
                     <!-- </form> -->
                 </div>
                 <input type="submit" value="Next" class="nextButton">
                 <input type="submit" value=" End Quiz" class="endQuiz">
+                <!-- <input type="submit" value="Hide Result" class="hideBtn"> -->
             </div> 
         </div>
     </main>
