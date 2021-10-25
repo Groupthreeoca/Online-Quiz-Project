@@ -326,7 +326,7 @@ header, main,footer{
 
   .signupForm,.loginForm{
     width: 70%;
-    margin-left: 0em;
+    margin-left: 0;
   }
  
   footer .footerText{
@@ -336,6 +336,23 @@ header, main,footer{
     justify-content: center;
   }
  
+}
+
+
+@media (max-width:1025px )and (min-width:656px){
+  .loginForm,.signupForm{
+    width:35% ;
+    height: auto;
+    margin-right:2em;
+  }
+
+
+}
+
+@media(min-width:767px){
+  .jobDescription{
+    width: 40vw;
+  }
 }
 
 
