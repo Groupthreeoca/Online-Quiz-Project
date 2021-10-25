@@ -37,14 +37,9 @@ function goSignup() {
   signupForm.style.display = " flex";
 
   loginForm.style.display = "none";
-  
-  signupForm.style.display = "none";
-  }
-  signupLink.addEventListener("click", goSignup);
-  function goSignup() {
-    
-    loginForm.style.display = "none";
 }
+  
+
 //------------------------------------------------------------------------------------------------------------//
 
 //======================================Signup password length and matching validation========================//
@@ -100,7 +95,16 @@ if (emailValue.match(regx)) {
 }
 }
 //------------------------------------------------------------------------------//
+//----------------------------Click Enter to Signup------------------------------//
+signupPasswordField.addEventListener('keydown',enterKeySignup)
+rsignupPasswordField.addEventListener('keydown',enterKeySignup)
+signupValid.addEventListener('keydown',enterKeySignup)
 
+function enterKeySignup(ev){
+  if(ev.keyCode == 13){
+    newSignup();
+  }
+}
 //----------------------------On click of the signup button----------------------//
 signupBtn.addEventListener("click", newSignup);
 function newSignup() {

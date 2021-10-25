@@ -83,12 +83,26 @@ let Question = [
   },
 ];
 
-//-----Saving the correct answers into the local storage-----//
+
+//-----Locating the correct answers----//
 let correctAnswers = [];
 for (let i = 0, length = Question.length; i < length; i++) {
   correctAnswers[i] = Question[i].Answer;
 }
-//===============================================Declarations================================================//
+saveCorrectAnswersToStorage(correctAnswers);
+//======================================================Saving Correct Answers To Local Storage=============================================//
+
+function saveCorrectAnswersToStorage(correctAnswers) {
+  
+  //In Order to print the question number in the keys in the local storage//
+  let questionNumber = 0;
+  /////Saving each element in the correct answers array coming from Questions Object into the storage as separate key for each question with the Text of the correct answer///////
+  for (let i of correctAnswers) {
+    localStorage.setItem(`Question${questionNumber}`, i);
+    questionNumber++;
+  }
+}
+//=====================================================================Declarations===========================================================//
 
 //Declarations for answer validation and moving between questions//
 //Getting Username from session storage//
@@ -133,21 +147,6 @@ for (let j = 0; j < questionsFromLocalLength; j++) {
 }
 questionsFromLocal.sort();
 
-
-
-//======================================================Saving Correct Answers To Local Storage=============================================//
-
-function saveCorrectAnswersToStorage(correctAnswers) {
-
-  //In Order to print the question number in the keys in the local storage//
-  let questionNumber = 0;
-  /////Saving each element in the correct answers array coming from Questions Object into the storage as separate key for each question with the Text of the correct answer///////
-  for (let i of correctAnswers) {
-    localStorage.setItem(`Question${questionNumber}`, i);
-    questionNumber++;
-  }
-}
-saveCorrectAnswersToStorage(correctAnswers);
 
 
 //=====================================================Initial Rules (DOM Manipulation)=====================================================//
@@ -321,9 +320,8 @@ nextButton.addEventListener("click", function () {
       //  Increase the counter to move to the next question
       count++;
     }
-    //=================================================================//
 
-    //==When the user reaches the final question (question Number 10)==//
+    //== final question (question Number 10)==//
     else {
       endExamClickFunction();
     }
