@@ -85,11 +85,12 @@ let Question = [
 
 
 //-----Locating the correct answers----//
+
 let correctAnswers = [];
 for (let i = 0, length = Question.length; i < length; i++) {
   correctAnswers[i] = Question[i].Answer;
 }
-saveCorrectAnswersToStorage(correctAnswers);
+
 //======================================================Saving Correct Answers To Local Storage=============================================//
 
 function saveCorrectAnswersToStorage(correctAnswers) {
@@ -102,16 +103,16 @@ function saveCorrectAnswersToStorage(correctAnswers) {
     questionNumber++;
   }
 }
+saveCorrectAnswersToStorage(correctAnswers);
+
 //=====================================================================Declarations===========================================================//
 
-//Declarations for answer validation and moving between questions//
 //Getting Username from session storage//
 let username;
 let passOrFail;
 let insertName = document.querySelector(".insertName");
 let loggedinUserBefore = sessionStorage.getItem(0);
 let loggedinUser = JSON.parse(localStorage.getItem(loggedinUserBefore));
-//////////////////////////////////////////
 const nextButton = document.querySelector(".nextButton");
 let mainDiv = document.querySelector("main");
 let quizQuestion = document.querySelector(".quiz-question");
@@ -122,6 +123,7 @@ let endQuiz = document.querySelector(".endQuiz");
 let welcoming = document.querySelector(".welcoming");
 let quizTitle = document.querySelector(".quiz-title");
 let divChoice= document.getElementsByClassName("choice");
+let quizContent=document.querySelector(".quiz-content")
 let currentQuestion = 1;
 let correctStatus = [];
 let userAnswers = [];
@@ -148,15 +150,17 @@ for (let j = 0; j < questionsFromLocalLength; j++) {
 questionsFromLocal.sort();
 
 
-
 //=====================================================Initial Rules (DOM Manipulation)=====================================================//
+
+//---------- If the user has not logged in-------//
 if(!loggedinUserBefore){
   mainDiv.innerHTML = "<h1> YOU HAVE NO ACCESS FOR THIS QUIZ, PLEASE LOGIN!"
 }
-
+//----------If the user has already took the exam------//
 else if(!(loggedinUser.yourFirstTime)){
   mainDiv.innerHTML = `You ${loggedinUser.passOrFail} The Exam and Your Result is ${loggedinUser.yourScore}`
 }
+//---------Showing user's name from local storage-------//
 else{
 insertName.innerHTML = `${loggedinUser.fname}`;
 }
@@ -166,6 +170,8 @@ nextButton.style.display = "none";
 //=====================================================Let's Start Button Dom Manipulation==================================================//
 
 letStart.addEventListener("click", function () {
+
+  quizContent.style.display="block";
   //hide quizTitle
   quizTitle.style.display = "none";
   //hide welcoming
@@ -233,6 +239,7 @@ function endExamClickFunction(){
   loggedinUser.yourFirstTime = false;
   loggedinUser.yourScore = `${correctAnswersCounter}/10`;
   let content = document.querySelector(".quiz-content");
+  content.style.alignItems="center"
   content.innerHTML = "<h2>You Completed The Quiz</h2>";
   content.innerHTML += `<p>Below are your results:</p>`;
   content.innerHTML +=
@@ -243,12 +250,10 @@ function endExamClickFunction(){
   if (correctAnswersCounter >= currentQuestion / 2) {
     loggedinUser.passOrFail = "Passed";
     console.log("toqa");
-    document.body.style.backgroundColor = "#4caf50";
-    content.innerHTML += "<h2>You Passed</h2>";
+    content.innerHTML += `<img  class="resultimg" src="./assets/images/pass.png"/>`;
   } else {
     loggedinUser.passOrFail = "Failed";
-    document.body.style.backgroundColor = "#f44336";
-    content.innerHTML += "<h2>You Failed</h2>";
+    content.innerHTML +=`<img  class="resultimg" src="./assets/images/failed.png"/>`;
     console.log("toqaaaaaaaaaa");
   }
   localStorage.setItem(loggedinUserBefore, JSON.stringify(loggedinUser));
