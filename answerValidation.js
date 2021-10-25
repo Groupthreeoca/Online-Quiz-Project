@@ -84,27 +84,35 @@ let Question = [
 ];
 
 
+//-----Locating the correct answers----//
 
-//-----Saving the correct answers into the local storage-----//
 let correctAnswers = [];
 for (let i = 0, length = Question.length; i < length; i++) {
   correctAnswers[i] = Question[i].Answer;
 }
 
+//======================================================Saving Correct Answers To Local Storage=============================================//
+
+function saveCorrectAnswersToStorage(correctAnswers) {
+  
+  //In Order to print the question number in the keys in the local storage//
+  let questionNumber = 0;
+  /////Saving each element in the correct answers array coming from Questions Object into the storage as separate key for each question with the Text of the correct answer///////
+  for (let i of correctAnswers) {
+    localStorage.setItem(`Question${questionNumber}`, i);
+    questionNumber++;
+  }
+}
 saveCorrectAnswersToStorage(correctAnswers);
 
+//=====================================================================Declarations===========================================================//
 
-
-//===============================================Declarations================================================//
-
-//Declarations for answer validation and moving between questions//
 //Getting Username from session storage//
 let username;
 let passOrFail;
 let insertName = document.querySelector(".insertName");
 let loggedinUserBefore = sessionStorage.getItem(0);
 let loggedinUser = JSON.parse(localStorage.getItem(loggedinUserBefore));
-//////////////////////////////////////////
 const nextButton = document.querySelector(".nextButton");
 let mainDiv = document.querySelector("main");
 let quizQuestion = document.querySelector(".quiz-question");
@@ -127,18 +135,6 @@ let showResultBtn;
 let hideResultBtn;
 let showCounter = 0;
 
-
-function saveCorrectAnswersToStorage(correctAnswers) {
-
-  //In Order to print the question number in the keys in the local storage//
-  let questionNumber = 0;
-  /////Saving each element in the correct answers array coming from Questions Object into the storage as separate key for each question with the Text of the correct answer///////
-  for (let i of correctAnswers) {
-    localStorage.setItem(`Question${questionNumber}`, i);
-    questionNumber++;
-  }
-}
-
 //Saving question keys from Local Storage into an array//
 let questionsFromLocal = []; ////Array that will contain the questions from local storage////
 let questionsFromLocalLength = localStorage.length;
@@ -154,18 +150,17 @@ for (let j = 0; j < questionsFromLocalLength; j++) {
 questionsFromLocal.sort();
 
 
-
-
-
-
 //=====================================================Initial Rules (DOM Manipulation)=====================================================//
+
+//---------- If the user has not logged in-------//
 if(!loggedinUserBefore){
   mainDiv.innerHTML = "<h1> YOU HAVE NO ACCESS FOR THIS QUIZ, PLEASE LOGIN!"
 }
-
+//----------If the user has already took the exam------//
 else if(!(loggedinUser.yourFirstTime)){
   mainDiv.innerHTML = `You ${loggedinUser.passOrFail} The Exam and Your Result is ${loggedinUser.yourScore}`
 }
+//---------Showing user's name from local storage-------//
 else{
 insertName.innerHTML = `${loggedinUser.fname}`;
 }
@@ -244,28 +239,28 @@ function endExamClickFunction(){
   loggedinUser.yourFirstTime = false;
   loggedinUser.yourScore = `${correctAnswersCounter}/10`;
   let content = document.querySelector(".quiz-content");
+  content.style.display="flex"
+  content.style.alignItems="center"
   content.innerHTML = "<h2>You Completed The Quiz</h2>";
-  content.innerHTML += `<p>Below are your results:</p>`;
+  content.innerHTML += `<p>Your result:</p>`;
   content.innerHTML +=
   `<h2>` +
   correctAnswersCounter +
-  ` out of ${currentQuestion} questions </h2>`;
+  ` / ${currentQuestion}</h2>`;
   
   if (correctAnswersCounter >= currentQuestion / 2) {
     loggedinUser.passOrFail = "Passed";
     console.log("toqa");
-    document.body.style.backgroundColor = "#4caf50";
-    content.innerHTML += "<h2>You Passed</h2>";
+    content.innerHTML += `<img  class="resultimg" src="./assets/images/pass.png"/>`;
   } else {
     loggedinUser.passOrFail = "Failed";
-    document.body.style.backgroundColor = "#f44336";
-    content.innerHTML += "<h2>You Failed</h2>";
+    content.innerHTML +=`<img  class="resultimg" src="./assets/images/failed.png"/>`;
     console.log("toqaaaaaaaaaa");
   }
   localStorage.setItem(loggedinUserBefore, JSON.stringify(loggedinUser));
 
-  content.innerHTML += `<input type="button" value="Show Results" class="show" >`;
-  content.innerHTML += `<input type="button" value="Hide Results" class="hideBtn" >`;
+  content.innerHTML += `<input type="button" value="Check Answers" class="show" >`;
+  content.innerHTML += `<input type="button" value="Hide Answers" class="hideBtn" >`;
 
   showResultBtn = document.querySelector(".show");
   hideResultBtn = document.querySelector(".hideBtn");
@@ -273,14 +268,12 @@ function endExamClickFunction(){
 
   showResultBtn.addEventListener("click", function () {
 
-    //when the user clicks on the submit button//
     checkAnswer(correctStatus, userAnswers);
 
     showResultBtn.style.display = "none";
     hideResultBtn.style.display = "inline-block";
     table.style.display = "block";
     hideResultBtn.addEventListener("click", function () {
-      //when the user clicks on the submit button//
       console.log("hide");
       table.style.display = "none";
       content;
@@ -288,14 +281,6 @@ function endExamClickFunction(){
       showResultBtn.style.display = "inline-block";
     });
     
-      hideResultBtn.addEventListener("click", function () {
-        //when the user clicks on the submit button//
-        console.log("hide");
-        table.style.display = "none";
-        content;
-        hideResultBtn.style.display = "none";
-        showResultBtn.style.display = "inline-block";
-      });
   });
 
 }
@@ -331,9 +316,8 @@ nextButton.addEventListener("click", function () {
       //  Increase the counter to move to the next question
       count++;
     }
-    //=================================================================//
 
-    //==When the user reaches the final question (question Number 10)==//
+    //== final question (question Number 10)==//
     else {
       endExamClickFunction();
     }
@@ -352,6 +336,7 @@ nextButton.addEventListener("click", function () {
 
 
 let table = document.createElement("table"); //creating a table to show the user's answers//
+
 function checkAnswer(correctStatus, userAnswers) {
 
   let examQuestion = [];
