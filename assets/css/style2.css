@@ -216,6 +216,7 @@
       .quiz-content {
         max-width: 50%;
         width: 40%;
+        display: none;
         /* padding: 0 15px; */
                 background-color: #f8f7f7;
             padding: 1.5rem;
