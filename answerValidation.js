@@ -234,6 +234,7 @@ function endExamClickFunction(){
   loggedinUser.yourFirstTime = false;
   loggedinUser.yourScore = `${correctAnswersCounter}/10`;
   let content = document.querySelector(".quiz-content");
+  content.style.alignItems="center"
   content.innerHTML = "<h2>You Completed The Quiz</h2>";
   content.innerHTML += `<p>Below are your results:</p>`;
   content.innerHTML +=
@@ -244,12 +245,10 @@ function endExamClickFunction(){
   if (correctAnswersCounter >= currentQuestion / 2) {
     loggedinUser.passOrFail = "Passed";
     console.log("toqa");
-    document.body.style.backgroundColor = "#4caf50";
-    content.innerHTML += "<h2>You Passed</h2>";
+    content.innerHTML += `<img  class="resultimg" src="./assets/images/pass.png"/>`;
   } else {
     loggedinUser.passOrFail = "Failed";
-    document.body.style.backgroundColor = "#f44336";
-    content.innerHTML += "<h2>You Failed</h2>";
+    content.innerHTML +=`<img  class="resultimg" src="./assets/images/failed.png"/>`;
     console.log("toqaaaaaaaaaa");
   }
   localStorage.setItem(loggedinUserBefore, JSON.stringify(loggedinUser));
