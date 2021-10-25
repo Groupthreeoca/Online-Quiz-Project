@@ -123,7 +123,8 @@ let endQuiz = document.querySelector(".endQuiz");
 let welcoming = document.querySelector(".welcoming");
 let quizTitle = document.querySelector(".quiz-title");
 let divChoice= document.getElementsByClassName("choice");
-let quizContent=document.querySelector(".quiz-content")
+let quizContent=document.querySelector(".quiz-content");
+let quizContainer=document.querySelector(".quiz-container");
 let currentQuestion = 1;
 let correctStatus = [];
 let userAnswers = [];
@@ -166,14 +167,14 @@ insertName.innerHTML = `${loggedinUser.fname}`;
 }
 
 nextButton.style.display = "none";
+quizContent.style.display ="none";
 
 //=====================================================Let's Start Button Dom Manipulation==================================================//
 
 letStart.addEventListener("click", function () {
 
-  quizContent.style.display="block";
-  //hide quizTitle
-  quizTitle.style.display = "none";
+  quizContent.style.display="flex";
+
   //hide welcoming
   welcoming.style.display = "none";
   //show Next button
@@ -196,6 +197,7 @@ letStart.addEventListener("click", function () {
   quizAnswer[0].innerHTML = Question[0].option1;
   quizAnswer[1].innerHTML = Question[0].option2;
   quizAnswer[2].innerHTML = Question[0].option3;
+
 });
 
 
@@ -338,6 +340,7 @@ nextButton.addEventListener("click", function () {
 let table = document.createElement("table"); //creating a table to show the user's answers//
 
 function checkAnswer(correctStatus, userAnswers) {
+let pop=document.querySelector(".swalto-popup");
 
   let examQuestion = [];
   for (let i = 0, length = Question.length; i < length; i++) {
@@ -367,8 +370,15 @@ function checkAnswer(correctStatus, userAnswers) {
       listItem.appendChild(questionCell); //adding the question cell to the row//
       listItem.appendChild(userAnswerCell); //adding the user answer cell to the row//
     }
-    quizDiv.appendChild(table); //adding the table to the div//
+    pop.appendChild(table); //adding the table to the div//
   } showCounter++;
+
+  // quizContainer.style.height="100%";
+  Swal.fire({
+   title:"yourAnser",
+  });
+
+  
 }
 
 
