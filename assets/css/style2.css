@@ -1,5 +1,7 @@
       @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
       @import url("https://fonts.googleapis.com/css2?family=Archivo:wght@100&family=Roboto&display=swap");
+      @import url("https://fonts.googleapis.com/css2?family=Archivo:wght@100&family=Roboto&display=swap");
+      @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,700;1,300&display=swap');
 
       :root {
         --primary: linear-gradient(90deg, rgba(253, 70, 82, 1) 50%, rgba(248, 247, 247, 1) 50%);
@@ -18,7 +20,7 @@
       body {
         padding: 0;
         margin: 0;
-        font-family: "Roboto", sans-serif;
+        font-family: 'Montserrat', sans-serif;
        
        background: var(--primary);
       }
@@ -105,8 +107,14 @@
         display: flex;
         /* margin: 2em; */
         list-style: none;
+        align-items: center;
+        margin: 0;
+        padding: 0;
       }
-
+      .navbar{
+        display: flex;
+        align-items: center;
+      }
       /* icons margin  */
       .navbar ul li {
         margin-right: 1em;
@@ -115,7 +123,7 @@
       /* icons links font-size  */
       .navbar ul li a {
         text-decoration: none;
-        font-size: 2em;
+        font-size: 3em;
         color: var(--red);
       }
 
@@ -157,8 +165,8 @@
         align-items: center;
         margin: 0 auto;
         margin-bottom: 1rem;
-            max-width: 62%;
-            width: 58%;
+            /* max-width: 62%;
+            width: 58%; */
             background-color: #f8f7f7;
             padding: 1.5rem;
             border: 1em #f8f7f7 solid;
@@ -320,6 +328,17 @@
       /* @media screen and (max-width: 480px){
 
       } */
+      table{
+        font-size: 90%;
+      }
+
+      @media only screen and (max-width: 600px) {
+        table{
+          font-size: 0.6em;
+
+        }
+        
+      }
        @media screen and (max-width: 480px) {
         .quiz-question {
           font-size: 1.2em;
@@ -339,10 +358,7 @@
         td{
           padding: 0.4em;
         }
-        table{
-          font-size: 0.6em;
-
-        }
+        
         .quiz-content h2{
           font-size: 1.2em;
         }
@@ -360,8 +376,11 @@
        }
 
        @media(max-width:768px){
-         
-        .quiz-content{
+         .welcoming{
+          max-width: 62%;
+          width: 58%;
+         }
+        content{
         max-width: 70%
         }
        

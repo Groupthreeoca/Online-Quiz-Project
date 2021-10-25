@@ -163,7 +163,8 @@ else if(!(loggedinUser.yourFirstTime)){
 }
 //---------Showing user's name from local storage-------//
 else{
-insertName.innerHTML = `${loggedinUser.fname}`;
+
+insertName.innerHTML = `${loggedinUser.fname}` ;
 }
 
 nextButton.style.display = "none";
@@ -213,7 +214,6 @@ function validateUserAnswer(){
         userCurrentAnswerText = document.getElementById(
         `a${userCurrentAnswerValue}`
         ).innerHTML;
-        console.log(userCurrentAnswerText);
     }
     } 
     /* -Comparing user answer with correct answer.
@@ -226,11 +226,9 @@ function validateUserAnswer(){
         userCurrentAnswerText ==
         localStorage.getItem(questionsFromLocal[currentQuestion - 1])
     ) {
-        console.log("correct ya ghaly");
         correctAnswersCounter++;
         correctStatus.push(true);
     } else {
-        console.log("wrong ya 7mar");
         correctStatus.push(false);
     }
     userAnswers.push(userCurrentAnswerText); //pushing the user answer to the userAnswers array//
@@ -243,8 +241,8 @@ function endExamClickFunction(){
   let content = document.querySelector(".quiz-content");
   content.style.display="flex"
   content.style.alignItems="center"
-  content.innerHTML = "<h2>You Completed The Quiz</h2>";
-  content.innerHTML += `<p>Your result:</p>`;
+  content.innerHTML = "<h2 class='complete'>You Completed The Quiz</h2>";
+  content.innerHTML += `<p class='complete1'>Your result:</p>`;
   content.innerHTML +=
   `<h2>` +
   correctAnswersCounter +
@@ -252,18 +250,18 @@ function endExamClickFunction(){
   
   if (correctAnswersCounter >= currentQuestion / 2) {
     loggedinUser.passOrFail = "Passed";
-    console.log("toqa");
     content.innerHTML += `<img  class="resultimg" src="./assets/images/pass.png"/>`;
   } else {
     loggedinUser.passOrFail = "Failed";
     content.innerHTML +=`<img  class="resultimg" src="./assets/images/failed.png"/>`;
-    console.log("toqaaaaaaaaaa");
   }
   localStorage.setItem(loggedinUserBefore, JSON.stringify(loggedinUser));
 
   content.innerHTML += `<input type="button" value="Check Answers" class="show" >`;
   content.innerHTML += `<input type="button" value="Hide Answers" class="hideBtn" >`;
-
+  let completeText = document.querySelector('.complete');
+  let completeText1 = document.querySelector('.complete1');
+  let resultimg = document.querySelector(".resultimg")
   showResultBtn = document.querySelector(".show");
   hideResultBtn = document.querySelector(".hideBtn");
   hideResultBtn.style.display = "none"
@@ -271,12 +269,16 @@ function endExamClickFunction(){
   showResultBtn.addEventListener("click", function () {
 
     checkAnswer(correctStatus, userAnswers);
-
+    resultimg.style.display = "none"
+    completeText.style.display = "none"
+    completeText1.style.display = "none"
     showResultBtn.style.display = "none";
     hideResultBtn.style.display = "inline-block";
     table.style.display = "block";
     hideResultBtn.addEventListener("click", function () {
-      console.log("hide");
+      resultimg.style.display = "block"
+      completeText.style.display = "block"
+      completeText1.style.display = "block"
       table.style.display = "none";
       content;
       hideResultBtn.style.display = "none";
@@ -340,8 +342,6 @@ nextButton.addEventListener("click", function () {
 let table = document.createElement("table"); //creating a table to show the user's answers//
 
 function checkAnswer(correctStatus, userAnswers) {
-let pop=document.querySelector(".swalto-popup");
-
   let examQuestion = [];
   for (let i = 0, length = Question.length; i < length; i++) {
     examQuestion[i] = Question[i].question;
@@ -370,13 +370,11 @@ let pop=document.querySelector(".swalto-popup");
       listItem.appendChild(questionCell); //adding the question cell to the row//
       listItem.appendChild(userAnswerCell); //adding the user answer cell to the row//
     }
-    pop.appendChild(table); //adding the table to the div//
+    quizDiv.appendChild(table); //adding the table to the div//
   } showCounter++;
 
   // quizContainer.style.height="100%";
-  Swal.fire({
-   title:"yourAnser",
-  });
+  
 
   
 }

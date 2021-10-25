@@ -69,12 +69,14 @@ function invalidRepeatPassword() {
   
 //-----------Validation for Matching-----------------//
 
-if (repeatPasswordValue == passwordValue) {
-  msg2.innerHTML = "correct password";
-} else{
-  msg2.innerHTML = "incorrect password";
+if (!(repeatPasswordValue == passwordValue)) {
+  msg2.innerHTML = "Passwords Don't Match";
+}
+else{
+  msg2.style.display='none';
 }
 }
+
 
 //---------------------------------------------------------------------------------------------------------------//
 
@@ -234,8 +236,6 @@ function goQuiz() {
   }
 }
 //------------------------------------------------------------------------------------------------------------------------------------------------------------//
-
-//تم بحمد الله //
 
 
 
