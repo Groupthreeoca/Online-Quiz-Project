@@ -239,13 +239,14 @@ function endExamClickFunction(){
   loggedinUser.yourFirstTime = false;
   loggedinUser.yourScore = `${correctAnswersCounter}/10`;
   let content = document.querySelector(".quiz-content");
+  content.style.display="flex"
   content.style.alignItems="center"
   content.innerHTML = "<h2>You Completed The Quiz</h2>";
-  content.innerHTML += `<p>Below are your results:</p>`;
+  content.innerHTML += `<p>Your result:</p>`;
   content.innerHTML +=
   `<h2>` +
   correctAnswersCounter +
-  ` out of ${currentQuestion} questions </h2>`;
+  ` / ${currentQuestion}</h2>`;
   
   if (correctAnswersCounter >= currentQuestion / 2) {
     loggedinUser.passOrFail = "Passed";
@@ -258,8 +259,8 @@ function endExamClickFunction(){
   }
   localStorage.setItem(loggedinUserBefore, JSON.stringify(loggedinUser));
 
-  content.innerHTML += `<input type="button" value="Show Results" class="show" >`;
-  content.innerHTML += `<input type="button" value="Hide Results" class="hideBtn" >`;
+  content.innerHTML += `<input type="button" value="Check Answers" class="show" >`;
+  content.innerHTML += `<input type="button" value="Hide Answers" class="hideBtn" >`;
 
   showResultBtn = document.querySelector(".show");
   hideResultBtn = document.querySelector(".hideBtn");
@@ -267,14 +268,12 @@ function endExamClickFunction(){
 
   showResultBtn.addEventListener("click", function () {
 
-    //when the user clicks on the submit button//
     checkAnswer(correctStatus, userAnswers);
 
     showResultBtn.style.display = "none";
     hideResultBtn.style.display = "inline-block";
     table.style.display = "block";
     hideResultBtn.addEventListener("click", function () {
-      //when the user clicks on the submit button//
       console.log("hide");
       table.style.display = "none";
       content;
@@ -282,14 +281,6 @@ function endExamClickFunction(){
       showResultBtn.style.display = "inline-block";
     });
     
-      hideResultBtn.addEventListener("click", function () {
-        //when the user clicks on the submit button//
-        console.log("hide");
-        table.style.display = "none";
-        content;
-        hideResultBtn.style.display = "none";
-        showResultBtn.style.display = "inline-block";
-      });
   });
 
 }
@@ -345,6 +336,7 @@ nextButton.addEventListener("click", function () {
 
 
 let table = document.createElement("table"); //creating a table to show the user's answers//
+
 function checkAnswer(correctStatus, userAnswers) {
 
   let examQuestion = [];
