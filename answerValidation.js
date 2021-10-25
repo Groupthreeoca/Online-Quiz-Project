@@ -83,11 +83,18 @@ let Question = [
   },
 ];
 
+
+
 //-----Saving the correct answers into the local storage-----//
 let correctAnswers = [];
 for (let i = 0, length = Question.length; i < length; i++) {
   correctAnswers[i] = Question[i].Answer;
 }
+
+saveCorrectAnswersToStorage(correctAnswers);
+
+
+
 //===============================================Declarations================================================//
 
 //Declarations for answer validation and moving between questions//
@@ -108,6 +115,7 @@ let endQuiz = document.querySelector(".endQuiz");
 let welcoming = document.querySelector(".welcoming");
 let quizTitle = document.querySelector(".quiz-title");
 let divChoice= document.getElementsByClassName("choice");
+let quizContent=document.querySelector(".quiz-content")
 let currentQuestion = 1;
 let correctStatus = [];
 let userAnswers = [];
@@ -118,6 +126,18 @@ let count = 1;
 let showResultBtn;
 let hideResultBtn;
 let showCounter = 0;
+
+
+function saveCorrectAnswersToStorage(correctAnswers) {
+
+  //In Order to print the question number in the keys in the local storage//
+  let questionNumber = 0;
+  /////Saving each element in the correct answers array coming from Questions Object into the storage as separate key for each question with the Text of the correct answer///////
+  for (let i of correctAnswers) {
+    localStorage.setItem(`Question${questionNumber}`, i);
+    questionNumber++;
+  }
+}
 
 //Saving question keys from Local Storage into an array//
 let questionsFromLocal = []; ////Array that will contain the questions from local storage////
@@ -135,19 +155,7 @@ questionsFromLocal.sort();
 
 
 
-//======================================================Saving Correct Answers To Local Storage=============================================//
 
-function saveCorrectAnswersToStorage(correctAnswers) {
-
-  //In Order to print the question number in the keys in the local storage//
-  let questionNumber = 0;
-  /////Saving each element in the correct answers array coming from Questions Object into the storage as separate key for each question with the Text of the correct answer///////
-  for (let i of correctAnswers) {
-    localStorage.setItem(`Question${questionNumber}`, i);
-    questionNumber++;
-  }
-}
-saveCorrectAnswersToStorage(correctAnswers);
 
 
 //=====================================================Initial Rules (DOM Manipulation)=====================================================//
@@ -167,6 +175,8 @@ nextButton.style.display = "none";
 //=====================================================Let's Start Button Dom Manipulation==================================================//
 
 letStart.addEventListener("click", function () {
+
+  quizContent.style.display="block";
   //hide quizTitle
   quizTitle.style.display = "none";
   //hide welcoming

@@ -23,7 +23,9 @@ let correctCheckForSignUpValidation = document.querySelector(".signupField  .fa-
 let wrongCheckForSignUpValidation = document.querySelector(".signupField  .fa-exclamation-circle");
 
 //-----------------------------------------------------------//
-
+// if(window.innerWidth<=656){
+//   document.body.style.background=" linear-gradient(20deg, rgba(253, 70, 82, 1) 50%, rgba(248, 247, 247, 1) 50%)";
+// }
 //==============================Toggle Between Create Account and Login Sections======================//
 
 signinLink.addEventListener("click", goSignin);
