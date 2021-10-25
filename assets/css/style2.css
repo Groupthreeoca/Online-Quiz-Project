@@ -320,8 +320,12 @@
           font-size: 1.2em;
         }
         .quiz-content {
-          width: 65%;
+          width: 70%;
               max-width: 70%;
+            
+        }
+        .choice{
+          font-size: 1em;
         }
         label {
           font-size: 0.8em;
@@ -353,7 +357,7 @@
        @media(max-width:768px){
          
         .quiz-content{
-        max-width: 50%;
+        max-width: 70%
         }
        
       
