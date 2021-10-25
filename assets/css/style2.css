@@ -81,9 +81,8 @@
       .container1 {
         display: flex;
         justify-content: space-between;
-       /* background: rgb(253, 70, 82); */
-       background: var(--primary);
-       
+      
+    
       }
 
       /* logo img margin and width and height */
@@ -96,7 +95,7 @@
       /* ul navbar layout and margin and list-style  */
       .navbar ul {
         display: flex;
-        margin: 2em;
+        /* margin: 2em; */
         list-style: none;
       }
 
@@ -117,14 +116,20 @@
         transform: scale(1.3);
       }
 
-      /* footer text-align  */
+     footer{
+      display: flex;
+      /* justify-content: flex-end; */
+      align-items: flex-end; 
+    
+  
+     }
 
       /* main background and layout and center */
       main {
 
         display: flex;
         justify-content: center;
-        /* height: 100vh; */
+       
 
       }
 
@@ -292,18 +297,18 @@
         transform: translateX(0.4rem);
       }
       
-      header {
-        height: 20vh;  
-      }
-      body{
-        height:60vh;
-      }
+    
+     
       footer{
-      height:20vh;
+     
       display: flex;
       justify-content: center;
       align-items: flex-end;
       }
+
+      .container1 ul li {
+        font-size: 0.6em;
+           }
 
 
       /* Responsive  */
@@ -341,8 +346,22 @@
         
         }
 
+    
+
        }
 
-       @media screen and (max-width: 768px) {
+       @media(max-width:768px){
+         
+        .quiz-content{
+        max-width: 50%;
+        }
+       
+      
+       }
 
+       @media screen and (max-width: 361px) {
+        .welcoming .estimatedTime, .quiz-title{
+          font-size: 0.7em;
+        }
+     
        }
